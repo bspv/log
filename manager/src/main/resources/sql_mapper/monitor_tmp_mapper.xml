@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bazzi.manager.mapper.MonitorTmpMapper">
+    <resultMap id="monitorTmp" type="com.bazzi.manager.model.MonitorTmp">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="monitor_id" jdbcType="INTEGER" property="monitorId"/>
+        <result column="tmp_type" jdbcType="INTEGER" property="tmpType"/>
+        <result column="idx" jdbcType="INTEGER" property="idx"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+     id, monitor_id, tmp_type, idx, content, create_user, create_time
+    </sql>
+
+</mapper>

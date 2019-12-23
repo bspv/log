@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bazzi.manager.mapper.ProjectFieldMapper">
+    <resultMap id="projectField" type="com.bazzi.manager.model.ProjectField">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="project_id" jdbcType="INTEGER" property="projectId"/>
+        <result column="field_name" jdbcType="VARCHAR" property="fieldName"/>
+        <result column="field_idx" jdbcType="INTEGER" property="fieldIdx"/>
+        <result column="field_log_regular" jdbcType="VARCHAR" property="fieldLogRegular"/>
+        <result column="field_regular" jdbcType="VARCHAR" property="fieldRegular"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+      id, project_id, field_name, field_idx, field_log_regular, field_regular, create_user,
+      create_time, update_user, update_time
+    </sql>
+</mapper>

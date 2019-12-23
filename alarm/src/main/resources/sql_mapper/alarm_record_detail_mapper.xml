@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bazzi.alarm.mapper.AlarmRecordDetailMapper">
+    <resultMap id="alarmRecordDetail" type="com.bazzi.alarm.model.AlarmRecordDetail">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="alarm_record_id" jdbcType="BIGINT" property="alarmRecordId"/>
+        <result column="recipient" jdbcType="VARCHAR" property="recipient"/>
+        <result column="alarm_mode" jdbcType="INTEGER" property="alarmMode"/>
+        <result column="send_status" jdbcType="INTEGER" property="sendStatus"/>
+        <result column="fail_msg" jdbcType="VARCHAR" property="failMsg"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+     id, alarm_record_id, recipient, alarm_mode, send_status, fail_msg, create_time
+    </sql>
+</mapper>

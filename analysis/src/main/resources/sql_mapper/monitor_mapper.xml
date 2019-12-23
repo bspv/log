@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bazzi.analysis.mapper.MonitorMapper">
+    <resultMap id="monitor" type="com.bazzi.analysis.model.Monitor">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="monitor_name" jdbcType="VARCHAR" property="monitorName"/>
+        <result column="project_id" jdbcType="INTEGER" property="projectId"/>
+        <result column="alarm_id" jdbcType="INTEGER" property="alarmId"/>
+        <result column="monitor_type" jdbcType="INTEGER" property="monitorType"/>
+        <result column="strategy_type" jdbcType="INTEGER" property="strategyType"/>
+        <result column="monitor_strategy" jdbcType="VARCHAR" property="monitorStrategy"/>
+        <result column="monitor_regular" jdbcType="VARCHAR" property="monitorRegular"/>
+        <result column="content_template" jdbcType="VARCHAR" property="contentTemplate"/>
+        <result column="use_tmp" jdbcType="INTEGER" property="useTmp"/>
+        <result column="handle_type" jdbcType="INTEGER" property="handleType"/>
+        <result column="cal_time" jdbcType="INTEGER" property="calTime"/>
+        <result column="cal_num" jdbcType="INTEGER" property="calNum"/>
+        <result column="send_interval" jdbcType="INTEGER" property="sendInterval"/>
+        <result column="priority" jdbcType="INTEGER" property="priority"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+     id, monitor_name, project_id, alarm_id, monitor_type, strategy_type, monitor_strategy,
+     monitor_regular, content_template, use_tmp, handle_type, cal_time, cal_num, send_interval,
+     priority, status, version, create_user, create_time, update_user, update_time
+    </sql>
+</mapper>

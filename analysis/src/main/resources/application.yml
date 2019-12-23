@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: analysis
+  profiles:
+    active: '@activeProfile@'
+  jmx:
+    enabled: false
+  cache:
+    redis:
+      key-prefix: analysis:tmp
+      key-prefix-permanent: analysis:per
+
+server:
+  port: 9023
+
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:sql_mapper/*.xml
+  type-aliases-package: com.bazzi.analysis.model
+  configuration:
+    call-setters-on-nulls: true
+
+#通用mapper配置
+mapper:
+  mappers: com.bazzi.analysis.mybatis.BaseMapper
+  not-empty: false
+  identity: MYSQL
+
+#PageHelper分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+  page-size-zero: true
+
+#logback日志，其余配置在pom里
+logging:
+  config: classpath:log4j2-spring.xml

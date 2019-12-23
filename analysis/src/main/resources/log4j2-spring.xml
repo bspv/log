@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Properties>
+        <Property name="LOG_NAME" value="@pom.log4j2.name@"/>
+        <Property name="LOG_HOME" value="@pom.log4j2.path@"/>
+        <Property name="LOG_LEVEL" value="@pom.log4j2.level@"/>
+
+        <Property name="STDOUT_LEVEL" value="${sys:stdout.level:-OFF}"/>
+
+        <Property name="LOG_CHARSET" value="UTF-8"/>
+        <Property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} | %-5p | %t | %c | - %m%n"/>
+    </Properties>
+    <Appenders>
+        <Console name="STDOUT" target="SYSTEM_OUT" follow="true">
+            <ThresholdFilter level="${STDOUT_LEVEL}"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <!--debug 输出到滚动保存的文件, 触发保存日志文件的条件是每小时第一次的日志事件。-->
+        <RollingFile name="debugLog" fileName="${LOG_HOME}/debug/${LOG_NAME}-debug.log"
+                     filePattern="${LOG_HOME}/debug/${LOG_NAME}-debug-%d{yyyy-MM-dd_HH}.log.gz">
+            <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout charset="${LOG_CHARSET}" pattern="${LOG_PATTERN}"/>
+            <TimeBasedTriggeringPolicy/>
+        </RollingFile>
+
+        <!--info 输出到滚动保存的文件, 触发保存日志文件的条件是每小时第一次的日志事件。-->
+        <RollingFile name="infoLog" fileName="${LOG_HOME}/info/${LOG_NAME}-info.log"
+                     filePattern="${LOG_HOME}/info/${LOG_NAME}-info-%d{yyyy-MM-dd_HH}.log.gz">
+            <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout charset="${LOG_CHARSET}" pattern="${LOG_PATTERN}"/>
+            <TimeBasedTriggeringPolicy/>
+        </RollingFile>
+
+        <!--error 输出到滚动保存的文件, 触发保存日志文件的条件是每小时第一次的日志事件。-->
+        <RollingFile name="errorLog" fileName="${LOG_HOME}/error/${LOG_NAME}-error.log"
+                     filePattern="${LOG_HOME}/error/${LOG_NAME}-error-%d{yyyy-MM-dd_HH}.log.gz">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout charset="${LOG_CHARSET}" pattern="${LOG_PATTERN}"/>
+            <TimeBasedTriggeringPolicy/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="org.springframework" level="INFO" />
+        <Logger name="ch.qos.logback" level="INFO" />
+        <Logger name="org.mybatis.spring.mapper.MapperScannerConfigurer" level="INFO" />
+        <Logger name="org.mybatis.spring.mapper.ClassPathMapperScanner" level="ERROR" />
+        <Logger name="org.mybatis.spring.SqlSessionFactoryBean" level="INFO" />
+        <Logger name="org.apache.commons.httpclient.HttpClient" level="INFO" />
+        <Logger name="org.apache.commons.httpclient" level="INFO" />
+        <Logger name="org.apache.commons.httpclient.HttpConnection" level="INFO" />
+        <Logger name="org.apache.http.client.protocol" level="INFO" />
+        <Logger name="org.apache.ibatis.logging.LogFactory" level="INFO" />
+        <Logger name="org.apache.commons.beanutils" level="INFO" />
+        <Logger name="org.apache.http.headers" level="INFO" />
+        <Logger name="java.sql.ResultSet" level="INFO" />
+        <!-- Spring-data-redis日志 -->
+        <Logger name="org.springframework.data.redis" level="INFO"/>
+        <Logger name="io.lettuce.core" level="INFO"/>
+        <!--kafka-->
+        <Logger name="org.apache.kafka" level="INFO" />
+        <Logger name="org.springframework.kafka" level="INFO" />
+        <Logger name="org.apache.kafka.clients.consumer.internals.AbstractCoordinator" level="ERROR" />
+        <Logger name="org.apache.kafka.clients.consumer.internals.ConsumerCoordinator" level="ERROR" />
+        <Logger name="org.springframework.kafka.listener.KafkaMessageListenerContainer" level="ERROR" />
+        <!--zookeeper-->
+        <Logger name="org.apache.zookeeper" level="ERROR" />
+        <Logger name="org.I0Itec.zkclient" level="ERROR" />
+
+        <Root level="${LOG_LEVEL}">
+            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="debugLog"/>
+            <AppenderRef ref="infoLog"/>
+            <AppenderRef ref="errorLog"/>
+        </Root>
+    </Loggers>
+</Configuration>

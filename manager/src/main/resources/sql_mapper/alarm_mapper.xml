@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bazzi.manager.mapper.AlarmMapper">
+    <resultMap id="alarm" type="com.bazzi.manager.model.Alarm">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="alarm_name" jdbcType="VARCHAR" property="alarmName"/>
+        <result column="alarm_mode" jdbcType="VARCHAR" property="alarmMode"/>
+        <result column="alarm_group_id" jdbcType="INTEGER" property="alarmGroupId"/>
+        <result column="alarm_desc" jdbcType="VARCHAR" property="alarmDesc"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+      id, alarm_name, alarm_mode, alarm_group_id, alarm_desc, status, remark, version,
+      create_user, create_time, update_user, update_time
+    </sql>
+
+    <select id="selectAlarmList" parameterType="com.bazzi.manager.vo.request.AlarmListReqVO" resultMap="alarm">
+        SELECT <include refid="Base_Column_List"/> FROM alarm
+        <where>
+            1 = 1
+            <if test="alarmName != null and alarmName != ''">
+                AND alarm_name like CONCAT('%',#{alarmName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="status != null and status != ''">
+                AND status == #{status,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <update id="update" parameterType="alarm">
+        UPDATE alarm
+        <set>
+            <if test="alarmName != null">
+                alarm_name = #{alarmName,jdbcType=VARCHAR},
+            </if>
+            <if test="alarmMode != null">
+                alarm_mode = #{alarmMode,jdbcType=VARCHAR},
+            </if>
+            <if test="alarmGroupId != null">
+                alarm_group_id = #{alarmGroupId,jdbcType=INTEGER},
+            </if>
+            <if test="alarmDesc != null">
+                alarm_desc = #{alarmDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            version = #{version,jdbcType=INTEGER} + 1 ,
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=INTEGER} AND version = #{version,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateStatus" parameterType="alarm">
+        UPDATE alarm
+        <set>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            version = #{version,jdbcType=INTEGER} + 1 ,
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=INTEGER} AND version = #{version,jdbcType=INTEGER}
+    </update>
+
+    <select id="selectCheckAgain" parameterType="alarm" resultMap="alarm">
+        SELECT <include refid="Base_Column_List"/> FROM alarm
+        WHERE alarm_name = #{alarmName,jdbcType=VARCHAR} AND id != #{id,jdbcType=INTEGER}
+    </select>
+
+</mapper>

@@ -1,0 +1,47 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.20.16.136:3306/log_analysis?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&roundRobinLoadBalance=true&failOverReadOnly=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 1
+      max-active: 20
+      max-wait: 60000
+      min-idle: 1
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      validation-query: SELECT 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+  redis:
+    cluster:
+      nodes:
+        172.20.102.170:7001,
+        172.20.102.170:7002,
+        172.20.102.170:7003,
+        172.20.102.171:7004,
+        172.20.102.171:7005,
+        172.20.102.171:7006
+    password: 123456
+  kafka:
+    bootstrap-servers: 172.20.102.57:9092,172.20.102.57:9093,172.20.102.57:9094
+    consumer:
+      group-id: manager
+  pool:
+    size: 8
+    thread-name-prefix: task-scheduler-pool-
+    await-termination-seconds: 60
+    waitForTasksToComplete: true
+  zookeeper:
+    url: 172.20.102.57:2181,172.20.102.57:2182,172.20.102.57:2183
+    timeout: 30000
+
+#日志
+logging:
+  file:
+    max-history: 7
+  level:
+    root: debug

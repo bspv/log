@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bazzi.manager.mapper.StatisticalMonitorMapper">
+    <resultMap id="statisticalMonitor" type="com.bazzi.manager.model.StatisticalMonitor">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="project_id" jdbcType="INTEGER" property="projectId"/>
+        <result column="monitor_id" jdbcType="INTEGER" property="monitorId"/>
+        <result column="alarm_id" jdbcType="INTEGER" property="alarmId"/>
+        <result column="monitor_num" jdbcType="BIGINT" property="monitorNum"/>
+        <result column="alarm_num" jdbcType="BIGINT" property="alarmNum"/>
+        <result column="total_day" jdbcType="VARCHAR" property="totalDay"/>
+        <result column="total_hour" jdbcType="VARCHAR" property="totalHour"/>
+        <result column="total_time" jdbcType="VARCHAR" property="totalTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <resultMap id="statisticalMonitorDO" type="com.bazzi.manager.bean.StatisticalMonitorDO" extends="statisticalMonitor">
+        <result column="project_name" jdbcType="VARCHAR" property="projectName"/>
+        <result column="project_cn_name" jdbcType="VARCHAR" property="projectCnName"/>
+        <result column="log_file_name" jdbcType="VARCHAR" property="logFileName"/>
+        <result column="monitor_name" jdbcType="VARCHAR" property="monitorName"/>
+        <result column="alarm_name" jdbcType="VARCHAR" property="alarmName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+     id, project_id, monitor_id, alarm_id, monitor_num, alarm_num, total_day, total_hour,
+     total_time, create_time
+    </sql>
+
+    <sql id="JOIN_Column_List">
+     t1.id, t1.project_id, t1.monitor_id, t1.alarm_id, t1.monitor_num, t1.alarm_num, t1.total_day, t1.total_hour,
+     t1.total_time, t1.create_time, t2.project_name, t2.project_cn_name, t2.log_file_name, t3.monitor_name, t4.alarm_name
+    </sql>
+
+    <select id="selectByParams" parameterType="com.bazzi.manager.vo.request.TotalByMonitorReqVO" resultMap="statisticalMonitorDO">
+        select
+        <include refid="JOIN_Column_List"/>
+        from statistical_monitor t1
+        left join project t2
+        on t1.project_id = t2.id
+        left join monitor t3
+        on t1.monitor_id = t3.id
+        left join alarm t4
+        on t1.alarm_id = t4.id
+        <where>
+            1 = 1
+            <if test="totalTimeStart != null and totalTimeStart != ''">
+                and total_time &gt;= #{totalTimeStart,jdbcType=VARCHAR}
+            </if>
+            <if test="totalTimeEnd != null and totalTimeEnd != ''">
+                and total_time &lt;= #{totalTimeEnd,jdbcType=VARCHAR}
+            </if>
+            <if test="projectName != null and projectName != ''">
+                and t2.project_name like CONCAT('%',#{projectName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="projectCnName != null and projectCnName != ''">
+                and t2.project_cn_name like CONCAT('%',#{projectCnName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="logFileName != null and logFileName != ''">
+                and t2.log_file_name like CONCAT('%',#{logFileName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="monitorName != null and monitorName != ''">
+                and t3.monitor_name like CONCAT('%',#{monitorName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="alarmName != null and alarmName != ''">
+                and t4.alarm_name like CONCAT('%',#{alarmName,jdbcType=VARCHAR},'%')
+            </if>
+        </where>
+        order by id desc
+    </select>
+</mapper>

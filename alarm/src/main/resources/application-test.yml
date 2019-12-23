@@ -1,0 +1,46 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://172.20.16.136:3306/log_analysis?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&roundRobinLoadBalance=true&failOverReadOnly=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 1
+      max-active: 20
+      max-wait: 60000
+      min-idle: 1
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      validation-query: SELECT 1
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+  redis:
+    cluster:
+      nodes:
+        redis01.test.hxlc.inner.com:7001,
+        redis02.test.hxlc.inner.com:7002,
+        redis03.test.hxlc.inner.com:7003,
+        redis04.test.hxlc.inner.com:7004,
+        redis05.test.hxlc.inner.com:7005,
+        redis06.test.hxlc.inner.com:7006
+    password: 123456
+  kafka:
+    bootstrap-servers: 172.20.102.163:9092,172.20.102.163:9092,172.20.102.163:9092
+    consumer:
+      group-id: finance-log-alarm
+  pool:
+    size: 8
+    thread-name-prefix: task-scheduler-pool-
+    await-termination-seconds: 60
+    waitForTasksToComplete: true
+
+emailTitle: 预警邮件-测试环境
+
+#日志
+logging:
+  file:
+    max-history: 30
+  level:
+    root: debug

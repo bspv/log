@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bazzi.manager.mapper.UserMenuMapper">
+    <resultMap id="userMenu" type="com.bazzi.manager.model.UserMenu">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="menu_id" jdbcType="INTEGER" property="menuId"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+      id, user_id, menu_id, create_user, create_time
+    </sql>
+
+    <insert id="batchInsert" parameterType="com.bazzi.manager.bean.BatchUserMenu">
+        insert into user_menu (user_id, menu_id, create_user, create_time)
+        values
+        <foreach collection="menuIds" item="menuId" separator="," >
+            (#{userId},#{menuId},#{createUser},#{createTime})
+        </foreach>
+    </insert>
+</mapper>

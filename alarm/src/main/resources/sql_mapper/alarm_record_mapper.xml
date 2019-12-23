@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bazzi.alarm.mapper.AlarmRecordMapper">
+    <resultMap id="alarmRecord" type="com.bazzi.alarm.model.AlarmRecord">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="project_id" jdbcType="INTEGER" property="projectId" />
+        <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+        <result column="log_file_name" jdbcType="VARCHAR" property="logFileName" />
+        <result column="capture_type" jdbcType="INTEGER" property="captureType" />
+        <result column="project_status" jdbcType="INTEGER" property="projectStatus" />
+        <result column="monitor_id" jdbcType="INTEGER" property="monitorId" />
+        <result column="monitor_name" jdbcType="VARCHAR" property="monitorName" />
+        <result column="monitor_regular" jdbcType="VARCHAR" property="monitorRegular" />
+        <result column="use_tmp" jdbcType="INTEGER" property="useTmp" />
+        <result column="handle_type" jdbcType="INTEGER" property="handleType" />
+        <result column="cal_time" jdbcType="INTEGER" property="calTime" />
+        <result column="cal_num" jdbcType="INTEGER" property="calNum" />
+        <result column="send_interval" jdbcType="INTEGER" property="sendInterval" />
+        <result column="priority" jdbcType="INTEGER" property="priority" />
+        <result column="monitor_status" jdbcType="INTEGER" property="monitorStatus" />
+        <result column="alarm_id" jdbcType="INTEGER" property="alarmId" />
+        <result column="alarm_name" jdbcType="VARCHAR" property="alarmName" />
+        <result column="alarm_mode" jdbcType="VARCHAR" property="alarmMode" />
+        <result column="alarm_status" jdbcType="INTEGER" property="alarmStatus" />
+        <result column="alarm_group_id" jdbcType="INTEGER" property="alarmGroupId" />
+        <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+        <result column="group_status" jdbcType="INTEGER" property="groupStatus" />
+        <result column="user_num" jdbcType="INTEGER" property="userNum" />
+        <result column="ip" jdbcType="VARCHAR" property="ip" />
+        <result column="first_trigger" jdbcType="TIMESTAMP" property="firstTrigger" />
+        <result column="trigger_time" jdbcType="TIMESTAMP" property="triggerTime" />
+        <result column="num" jdbcType="INTEGER" property="num" />
+        <result column="platform" jdbcType="VARCHAR" property="platform" />
+        <result column="message" jdbcType="VARCHAR" property="message" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="err_code" jdbcType="VARCHAR" property="errCode" />
+        <result column="err_msg" jdbcType="VARCHAR" property="errMsg" />
+        <result column="reserve" jdbcType="INTEGER" property="reserve" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+     id, project_id, project_name, log_file_name, capture_type, project_status, monitor_id,
+     monitor_name, monitor_regular, use_tmp, handle_type, cal_time, cal_num, send_interval,
+     priority, monitor_status, alarm_id, alarm_name, alarm_mode, alarm_status, alarm_group_id,
+     group_name, group_status, user_num, ip, first_trigger, trigger_time, num, platform,
+     status, err_code, err_msg, reserve, remark, create_time
+    </sql>
+</mapper>

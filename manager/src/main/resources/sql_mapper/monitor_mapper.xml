@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bazzi.manager.mapper.MonitorMapper">
+    <resultMap id="monitor" type="com.bazzi.manager.model.Monitor">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="monitor_name" jdbcType="VARCHAR" property="monitorName"/>
+        <result column="project_id" jdbcType="INTEGER" property="projectId"/>
+        <result column="alarm_id" jdbcType="INTEGER" property="alarmId"/>
+        <result column="monitor_type" jdbcType="INTEGER" property="monitorType"/>
+        <result column="strategy_type" jdbcType="INTEGER" property="strategyType"/>
+        <result column="monitor_strategy" jdbcType="VARCHAR" property="monitorStrategy"/>
+        <result column="monitor_regular" jdbcType="VARCHAR" property="monitorRegular"/>
+        <result column="content_template" jdbcType="VARCHAR" property="contentTemplate"/>
+        <result column="use_tmp" jdbcType="INTEGER" property="useTmp"/>
+        <result column="handle_type" jdbcType="INTEGER" property="handleType"/>
+        <result column="cal_time" jdbcType="INTEGER" property="calTime"/>
+        <result column="cal_num" jdbcType="INTEGER" property="calNum"/>
+        <result column="send_interval" jdbcType="INTEGER" property="sendInterval"/>
+        <result column="priority" jdbcType="INTEGER" property="priority"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="version" jdbcType="INTEGER" property="version"/>
+        <result column="create_user" jdbcType="VARCHAR" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="VARCHAR" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+     id, monitor_name, project_id, alarm_id, monitor_type, strategy_type, monitor_strategy,
+     monitor_regular, content_template, use_tmp, handle_type, cal_time, cal_num, send_interval,
+     priority, status, version, create_user, create_time, update_user, update_time
+    </sql>
+    <select id="selectByParams" parameterType="com.bazzi.manager.vo.request.MonitorListReqVO" resultMap="monitor">
+        select
+        <include refid="Base_Column_List"/>
+        from monitor
+        <where>
+            1 = 1
+            <if test="monitorName != null and monitorName != ''">
+                and monitor_name like CONCAT('%',#{monitorName,jdbcType=VARCHAR},'%')
+            </if>
+            <if test="projectId != null">
+                and project_id = #{projectId,jdbcType=VARCHAR}
+            </if>
+            <if test="alarmId != null">
+                and alarm_id = #{alarmId,jdbcType=VARCHAR}
+            </if>
+        </where>
+    </select>
+    <update id="update" parameterType="monitor">
+        update monitor
+        <set>
+            <if test="monitorName != null">
+                monitor_name = #{monitorName,jdbcType=VARCHAR},
+            </if>
+            <if test="projectId != null">
+                project_id = #{projectId,jdbcType=INTEGER},
+            </if>
+            <if test="alarmId != null">
+                alarm_id = #{alarmId,jdbcType=INTEGER},
+            </if>
+            <if test="monitorType != null">
+                monitor_type = #{monitorType,jdbcType=INTEGER},
+            </if>
+            <if test="strategyType != null">
+                strategy_type = #{strategyType,jdbcType=INTEGER},
+            </if>
+            <if test="monitorStrategy != null">
+                monitor_strategy = #{monitorStrategy,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorRegular != null">
+                monitor_regular = #{monitorRegular,jdbcType=VARCHAR},
+            </if>
+            <if test="contentTemplate != null">
+                content_template = #{contentTemplate,jdbcType=VARCHAR},
+            </if>
+            <if test="useTmp != null">
+                use_tmp = #{useTmp,jdbcType=INTEGER},
+            </if>
+            <if test="handleType != null">
+                handle_type = #{handleType,jdbcType=INTEGER},
+            </if>
+            <if test="calTime != null">
+                cal_time = #{calTime,jdbcType=INTEGER},
+            </if>
+            <if test="calNum != null">
+                cal_num = #{calNum,jdbcType=INTEGER},
+            </if>
+            <if test="sendInterval != null">
+                send_interval = #{sendInterval,jdbcType=INTEGER},
+            </if>
+            <if test="priority != null">
+                priority = #{priority,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            version = #{version,jdbcType=INTEGER} + 1 ,
+            <if test="createUser != null">
+                create_user = #{createUser,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateUser != null">
+                update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER} and version = #{version,jdbcType=INTEGER}
+    </update>
+</mapper>

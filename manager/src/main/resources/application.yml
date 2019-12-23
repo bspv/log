@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: manager
+  profiles:
+    active: '@activeProfile@'
+  jmx:
+    enabled: false
+  cache:
+    redis:
+      key-prefix: manager:tmp
+      key-prefix-permanent: manager:per
+
+server:
+  port: 9021
+
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:sql_mapper/*.xml
+  type-aliases-package: com.bazzi.manager.model
+  configuration:
+    call-setters-on-nulls: true
+
+#通用mapper配置
+mapper:
+  mappers: com.bazzi.manager.mybatis.BaseMapper
+  not-empty: false
+  identity: MYSQL
+
+#PageHelper分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+  page-size-zero: true
+
+#logback日志
+logging:
+  config: classpath:logback-spring.xml
+  path: /export/data/logs/
+  charset: UTF-8

@@ -1,0 +1,39 @@
+storm jar analysis-1.0-SNAPSHOT.jar com.bazzi.analysis.AnalysisProcessor analysis-topology
+storm kill analysis-topology
+
+ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"
+
+export serverIp=`ifconfig eth0 | grep 'inet addr' | awk '{print $2}' | cut -d':' -f2`
+export serverIp=`ifconfig ens33|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
+
+mvn dependency:tree -Ddetail=true
+
+./filebeat.exe -c filebeat.yml -e
+nohup /export/servers/filebeat-6.6.2-linux-x86_64/filebeat -e -c /export/servers/filebeat-6.6.2-linux-x86_64/filebeat.yml >/export/servers/filebeat-6.6.2-linux-x86_64/filebeat.log &
+
+
+nohup /usr/local/apache-storm-1.2.2/bin/storm nimbus > /usr/local/apache-storm-1.2.2/logs/nimbus.out 2>&1 &
+nohup /usr/local/apache-storm-1.2.2/bin/storm supervisor > /usr/local/apache-storm-1.2.2/logs/supervisor.out 2>&1 &
+nohup /usr/local/apache-storm-1.2.2/bin/storm ui > /usr/local/apache-storm-1.2.2/logs/ui.out 2>&1 &
+
+
+nohup java -Xdebug -Xrunjdwp:transport=dt_socket,address=9101,server=y,suspend=y -jar finance-api-gateway.jar > finance-api-gateway.jar.out  2>&1 &
+nohup java -Xdebug -Xrunjdwp:transport=dt_socket,address=9101,server=y,suspend=y -jar finance-api-gateway.jar > log.out  2>&1 &
+
+{"@timestamp":"2019-02-28T02:20:45.044Z",
+"@metadata":{"beat":"filebeat","type":"doc","version":"6.5.1","topic":"topic_api_log_dev"},
+"serverIp":"172.20.106.39",
+"beat":{"name":"GetOn-PC","hostname":"GetOn-PC","version":"6.5.1"},
+"host":{"name":"GetOn-PC",
+        "architecture":"x86_64",
+        "os":{
+            "platform":"windows",
+            "version":"10.0",
+            "family":"windows",
+            "build":"17763.316"},
+        "id":"319a6b0b-5bdd-47b4-8a8a-4169122eb723"},
+"message":"2019-02-28 10:20:37.636|INFO|Thread-63|||||||||||o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext|doClose|Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@7cd0890f: startup date [Thu Feb 28 10:15:28 CST 2019]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@6fc17c91",
+"source":"d:\\export\\data\\logs\\info\\finance-api-gateway-info.log",
+"offset":49505,
+"input":{"type":"log"},
+"prospector":{"type":"log"}}
