@@ -11,7 +11,7 @@ public final class LogPatternUtil {
     private static final Pattern P_DATE = Pattern.compile(F_DATE);
     //level，匹配%highlight(%-5level)、%-5level、%level
     private static final String F_LEVEL = "^(%\\w+\\()?%(-\\d)?(p|le|level)(\\))?$";
-    private static final String G_LEVEL = "(?<level>\\w{4,5})";
+    private static final String G_LEVEL = "(?<level>[\\w\\s]{4,5})";
     private static final Pattern P_LEVEL = Pattern.compile(F_LEVEL);
     //logger
     private static final String F_LOGGER = "^(%\\w+\\()?%(c|lo|logger)(\\{\\d+})?(\\))?$";
