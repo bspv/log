@@ -11,7 +11,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 
 @EnableAsync
 @EnableKafka
-@MapperScan(basePackages = {"com.hxlc.analysis.mapper"})
+@MapperScan(basePackages = {"com.bazzi.analysis.mapper"})
 @EnableConfigurationProperties({DefinitionProperties.class})
 @SpringBootApplication
 public class AnalysisProcessor {
