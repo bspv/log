@@ -2,7 +2,6 @@ package com.bazzi.alarm.aspect;
 
 import com.bazzi.alarm.mapper.AlarmRecordMapper;
 import com.bazzi.alarm.model.AlarmRecord;
-import com.bazzi.alarm.service.ConfigService;
 import com.bazzi.common.generic.AlarmDesc;
 import com.bazzi.common.generic.LogStatusCode;
 import com.bazzi.common.util.DateUtil;
@@ -23,11 +22,8 @@ public class AlarmAspect {
     @Resource
     private AlarmRecordMapper alarmRecordMapper;
 
-    @Resource
-    private ConfigService configService;
-
     @AfterThrowing(throwing = "ex", argNames = "alarmDesc,ex",
-            value = "execution(public * com.hxlc.alarm.service.impl.AlarmServiceImpl.alarm(..)) && args(alarmDesc) ")
+            value = "execution(public * com.bazzi.alarm.service.impl.AlarmServiceImpl.alarm(..)) && args(alarmDesc) ")
     public void afterThrowing(AlarmDesc alarmDesc, Throwable ex) {
         log.error(ex.getMessage(), ex);
         String errCode = LogStatusCode.CODE_300.getCode();

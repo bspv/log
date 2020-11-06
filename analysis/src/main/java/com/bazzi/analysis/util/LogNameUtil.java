@@ -16,16 +16,7 @@ public final class LogNameUtil {
      * @return 日志文件名
      */
     public static String getLogName(LogDetail logDetail) {
-        String platform = logDetail.getHost().getOs().getPlatform();
-        String logName = logDetail.getSource();
-        int start;
-        if (WINDOWS.equals(platform)) {
-            start = logName.lastIndexOf(WINDOWS_SPLIT) + 1;
-        } else {
-            start = logName.lastIndexOf(LINUX_SPLIT) + 1;
-        }
-        int end = logName.lastIndexOf(POINT);
-        return logName.substring(start, end);
+        return logDetail.getFileName();
     }
 
 }

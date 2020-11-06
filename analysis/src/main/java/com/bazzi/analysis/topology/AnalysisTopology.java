@@ -9,16 +9,11 @@ import org.apache.storm.StormSubmitter;
 import org.apache.storm.generated.AlreadyAliveException;
 import org.apache.storm.generated.AuthorizationException;
 import org.apache.storm.generated.InvalidTopologyException;
-import org.apache.storm.kafka.spout.KafkaSpout;
-import org.apache.storm.kafka.spout.KafkaSpoutConfig;
-import org.apache.storm.kafka.spout.KafkaSpoutRetryExponentialBackoff;
-import org.apache.storm.kafka.spout.KafkaSpoutRetryService;
+import org.apache.storm.kafka.spout.*;
 import org.apache.storm.topology.TopologyBuilder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-
-import static org.apache.storm.kafka.spout.KafkaSpoutConfig.FirstPollOffsetStrategy.LATEST;
 
 @Slf4j
 @Component
@@ -45,19 +40,24 @@ public class AnalysisTopology {
         conf.setDebug(false);
 
         if (args == null || args.length == 0) {
-            LocalCluster cluster = new LocalCluster();
-            cluster.submitTopology(LOCAL_TOPOLOGY_NAME, conf, builder.createTopology());
             try {
-                // Wait for some time before exiting
-                log.info("Waiting to consume from kafka=================================");
-                Thread.sleep(3000000);
-            } catch (Exception exception) {
-                log.error("Thread interrupted exception : " + exception.getMessage());
+                LocalCluster cluster = new LocalCluster();
+                cluster.submitTopology(LOCAL_TOPOLOGY_NAME, conf, builder.createTopology());
+                try {
+                    // Wait for some time before exiting
+                    log.info("Waiting to consume from kafka=================================");
+                    Thread.sleep(3000000);
+                } catch (Exception exception) {
+                    log.error("Thread interrupted exception : " + exception.getMessage());
+                }
+                // kill the AnalysisTopology
+                cluster.killTopology(LOCAL_TOPOLOGY_NAME);
+                // shut down the storm test cluster
+                cluster.shutdown();
+            } catch (Exception e) {
+                log.error("本地提交失败,TopologyName:{}", LOCAL_TOPOLOGY_NAME);
+                log.error(e.getMessage(), e);
             }
-            // kill the AnalysisTopology
-            cluster.killTopology(LOCAL_TOPOLOGY_NAME);
-            // shut down the storm test cluster
-            cluster.shutdown();
         } else {
             try {
                 conf.setNumWorkers(definitionProperties.getWorkerNum());
@@ -73,11 +73,12 @@ public class AnalysisTopology {
     private KafkaSpoutConfig<String, String> buildKafkaSpoutConfig(KafkaSpoutRetryService kafkaSpoutRetryService) {
         return KafkaSpoutConfig.builder(definitionProperties.getBootstrapServers(), definitionProperties.getLogTopic())
                 .setProp(ConsumerConfig.GROUP_ID_CONFIG, definitionProperties.getGroupId())
-                .setProp(ConsumerConfig.MAX_PARTITION_FETCH_BYTES_CONFIG, 200)
+                .setProp(ConsumerConfig.MAX_PARTITION_FETCH_BYTES_CONFIG, 20000)
+                .setProcessingGuarantee(KafkaSpoutConfig.ProcessingGuarantee.AT_LEAST_ONCE)
                 .setRetry(kafkaSpoutRetryService)
                 .setOffsetCommitPeriodMs(10000)
-                .setFirstPollOffsetStrategy(LATEST)
-                .setMaxUncommittedOffsets(250)
+                .setFirstPollOffsetStrategy(FirstPollOffsetStrategy.LATEST)
+                .setMaxUncommittedOffsets(25000)
                 .build();
     }
 

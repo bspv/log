@@ -37,8 +37,8 @@ public class ValidatorAspect {
     @Resource
     private Validator validator;
 
-    @Before(value = "execution(public * com.hxlc.manager.controller.*.*(..)) " +
-            "|| execution(public * com.hxlc.manager.controller.*.*.*(..))")
+    @Before(value = "execution(public * com.bazzi.manager.controller.*.*(..)) " +
+            "|| execution(public * com.bazzi.manager.controller.*.*.*(..))")
     public void parameterValidator(JoinPoint joinPoint) throws Throwable {
         // 获取请求参数
         Object[] args = joinPoint.getArgs();

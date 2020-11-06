@@ -1,4 +1,4 @@
-package com.bazzi.manager.mybatis;
+package com.bazzi.common.mybatis;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

@@ -1,7 +1,7 @@
 package com.bazzi.manager.mapper;
 
+import com.bazzi.common.mybatis.BaseMapper;
 import com.bazzi.manager.model.GroupUser;
-import com.bazzi.manager.mybatis.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

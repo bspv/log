@@ -1,7 +1,7 @@
 package com.bazzi.manager.config;
 
-import com.bazzi.manager.interceptor.LoginInterceptor;
 import com.google.common.net.HttpHeaders;
+import com.bazzi.manager.interceptor.LoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -24,6 +24,9 @@ public class WebAppConfig implements WebMvcConfigurer {
                         "/v2/api-docs-ext",
                         "/webjars/**",
                         "/swagger-resources",
+                        "/swagger-resources/configuration",
+                        "/swagger-resources/configuration/ui",
+                        "/favicon.ico",
                         "/**.html");
     }
 

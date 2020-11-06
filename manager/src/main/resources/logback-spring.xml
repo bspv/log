@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false">
     <springProperty name="LOG_PATH" source="logging.path" defaultValue="/export/data/logs"/>
-    <springProperty name="LOG_NAME" source="spring.application.name" defaultValue="log-manager"/>
+    <springProperty name="LOG_NAME" source="spring.application.name" defaultValue="manager"/>
     <springProperty name="LOG_LEVEL" source="logging.level.root" defaultValue="INFO"/>
     <springProperty name="MAX_HISTORY" source="logging.file.max-history" defaultValue="7"/>
     <springProperty name="LOG_CHARSET" source="logging.charset" defaultValue="UTF-8"/>

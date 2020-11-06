@@ -29,8 +29,8 @@ public class ParamAspect {
     @Resource
     private HttpServletRequest request;
 
-    @Before(value = "execution(public * com.hxlc.manager.controller.*.*(..)) " +
-            "|| execution(public * com.hxlc.manager.controller.*.*.*(..))")
+    @Before(value = "execution(public * com.bazzi.manager.controller.*.*(..)) " +
+            "|| execution(public * com.bazzi.manager.controller.*.*.*(..))")
     public void beforeHandler(JoinPoint joinPoint) throws Throwable {
         Method currentMethod = AspectUtil.findMethod(joinPoint);
         Annotation[][] parameterAnnotations = currentMethod.getParameterAnnotations();

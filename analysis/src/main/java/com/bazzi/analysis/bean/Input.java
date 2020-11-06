@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Input {
-
     @JsonProperty(value = "type")
     private String type;
 }

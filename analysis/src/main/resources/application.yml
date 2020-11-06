@@ -22,7 +22,7 @@ mybatis:
 
 #通用mapper配置
 mapper:
-  mappers: com.bazzi.analysis.mybatis.BaseMapper
+  mappers: com.bazzi.common.mybatis.BaseMapper
   not-empty: false
   identity: MYSQL
 

@@ -17,29 +17,29 @@ public class LogDetail {
     @JsonProperty(value = "@metadata")
     private Metadata metadata;
 
-    @JsonProperty(value = "input")
-    private Input input;
-
-    @JsonProperty(value = "prospector")
-    private Prospector prospector;
-
-    @JsonProperty(value = "beat")
-    private Beat beat;
-
     @JsonProperty(value = "host")
     private Host host;
 
-    @JsonProperty(value = "source")
-    private String source;
+    @JsonProperty(value = "agent")
+    private Agent agent;
 
-    @JsonProperty(value = "offset")
-    private Long offset;
+    @JsonProperty(value = "ecs")
+    private Ecs ecs;
+
+    @JsonProperty(value = "log")
+    private Log log;
 
     @JsonProperty(value = "message")
     private String message;
 
+    @JsonProperty(value = "input")
+    private Input input;
+
     @JsonProperty(value = "serverIp")
     private String serverIp;
+
+    @JsonProperty(value = "fileName")
+    private String fileName;
 
     private int len;
 }

@@ -14,6 +14,12 @@ public class Os {
     @JsonProperty(value = "family")
     private String family;
 
+    @JsonProperty(value = "name")
+    private String name;
+
+    @JsonProperty(value = "kernel")
+    private String kernel;
+
     @JsonProperty(value = "build")
     private String build;
 

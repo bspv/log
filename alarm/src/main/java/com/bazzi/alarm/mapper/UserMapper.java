@@ -1,7 +1,7 @@
 package com.bazzi.alarm.mapper;
 
 import com.bazzi.alarm.model.User;
-import com.bazzi.alarm.mybatis.BaseMapper;
+import com.bazzi.common.mybatis.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

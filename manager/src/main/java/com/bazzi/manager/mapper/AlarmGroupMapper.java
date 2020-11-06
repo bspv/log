@@ -1,7 +1,7 @@
 package com.bazzi.manager.mapper;
 
+import com.bazzi.common.mybatis.BaseMapper;
 import com.bazzi.manager.model.AlarmGroup;
-import com.bazzi.manager.mybatis.BaseMapper;
 import com.bazzi.manager.vo.request.AlarmGroupListReqVO;
 
 import java.util.List;

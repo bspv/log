@@ -2,32 +2,37 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://172.20.16.136:3306/log_analysis?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&roundRobinLoadBalance=true&failOverReadOnly=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai
-    username: fapp
-    password: fapp1qaz@#$
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      initial-size: 1
-      max-active: 20
-      max-wait: 60000
-      min-idle: 1
-      test-on-borrow: false
-      test-on-return: false
-      test-while-idle: true
-      validation-query: SELECT 1
-      time-between-eviction-runs-millis: 60000
-      min-evictable-idle-time-millis: 300000
+    username: root
+    password: 123456
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      ## 连接池名称
+      pool-name: manager_hikari
+      ## 此属性控制池中连接的最长生命周期，值0表示无限生命周期，默认1800000即30分钟
+      max-lifetime: 1800000
+      ## 连接池最大连接数，默认是10
+      maximum-pool-size: 20
+      ## 最小空闲连接数量
+      minimum-idle: 1
+      ## 空闲连接存活最大时间，默认600000（10分钟）
+      idle-timeout: 180000
+      ## 此属性控制从池返回的连接的默认自动提交行为,默认值：true
+      auto-commit: true
+      ## 数据库连接超时时间,默认30秒，即30000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
   redis:
     cluster:
       nodes:
-        redis01.hxlc.inner.com:7001,
-        redis02.hxlc.inner.com:7002,
-        redis03.hxlc.inner.com:7003,
-        redis04.hxlc.inner.com:7004,
-        redis05.hxlc.inner.com:7005,
-        redis06.hxlc.inner.com:7006
-    password: phkVrn4is1GaS7BN
+        172.168.0.1:7001,
+        172.168.0.2:7002,
+        172.168.0.3:7003,
+        172.168.0.1:7004,
+        172.168.0.2:7005,
+        172.168.0.3:7006
+    password: 123456
   kafka:
-    bootstrap-servers: kafka01.hxlc.inner.com:9092,kafka02.hxlc.inner.com:9092,kafka03.hxlc.inner.com:9092
+    bootstrap-servers: 172.168.0.1:9092,172.168.0.2:9092,172.168.0.3:9092
     consumer:
       group-id: manager
   pool:
@@ -36,7 +41,7 @@ spring:
     await-termination-seconds: 60
     waitForTasksToComplete: true
   zookeeper:
-    url: jituan-26-10-170.com:2181,jituan-26-10-171.com:2181,jituan-26-10-172.com:2181
+    url: 172.168.0.1:2181,172.168.0.2:2181,172.168.0.3:2181
     timeout: 30000
 
 #日志
@@ -44,4 +49,4 @@ logging:
   file:
     max-history: 30
   level:
-    root: debug
+    root: DEBUG

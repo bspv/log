@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Metadata {
-
     @JsonProperty(value = "beat")
     private String beat;
 
@@ -17,6 +16,4 @@ public class Metadata {
     @JsonProperty(value = "version")
     private String version;
 
-    @JsonProperty(value = "topic")
-    private String topic;
 }

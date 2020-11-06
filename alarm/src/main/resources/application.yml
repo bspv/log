@@ -27,8 +27,8 @@ spring:
       key-prefix-permanent: alarm:per
   mail:
     host: smtp.exmail.qq.com
-    username: alarm4log@hexindai.com
-    password: HExin2019alarm
+    username: 123456@qq.com
+    password: 123456
     properties:
       mail:
         smtp:
@@ -50,7 +50,7 @@ mybatis:
 
 #通用mapper配置
 mapper:
-  mappers: com.bazzi.alarm.mybatis.BaseMapper
+  mappers: com.bazzi.common.mybatis.BaseMapper
   not-empty: false
   identity: MYSQL
 

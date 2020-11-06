@@ -1,7 +1,7 @@
 package com.bazzi.manager.config;
 
+import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import com.bazzi.manager.util.Constant;
-import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -9,22 +9,22 @@ import springfox.documentation.builders.ParameterBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.schema.ModelRef;
-import springfox.documentation.service.Contact;
 import springfox.documentation.service.Parameter;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@EnableSwagger2
-@EnableSwaggerBootstrapUI
-public class SwaggerConfig {
+@EnableSwagger2WebMvc
+public class Knife4jConfig {
     @Resource
     private DefinitionProperties definitionProperties;
+    @Resource
+    private OpenApiExtensionResolver openApiExtensionResolver;
 
     @Bean
     public Docket createRestApi() {
@@ -34,14 +34,12 @@ public class SwaggerConfig {
                 .groupName(definitionProperties.getApplicationName())//分组名
                 .globalOperationParameters(buildGlobalOperationParameters())//全局参数设置
                 .apiInfo(new ApiInfoBuilder()
-                        .title("Finance Log Manager API")//大标题
-                        .description("和信基金---日志后台管理系统---接口文档")//详细描述
-                        .termsOfServiceUrl("http://wiki.keji.com/pages/viewpage.action?pageId=5178504")
-                        .contact(new Contact("API组", null, null))
+                        .title("Log Manager API")//大标题
+                        .description("日志管理后台---接口文档")//详细描述
                         .version("1.0")//版本
                         .build())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.hxlc.manager.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.bazzi.manager.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -52,5 +50,4 @@ public class SwaggerConfig {
                 .modelRef(new ModelRef("string")).parameterType("header").required(false).build());
         return list;
     }
-
 }
