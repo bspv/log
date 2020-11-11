@@ -17,23 +17,58 @@ nohup /usr/local/apache-storm-1.2.2/bin/storm supervisor > /usr/local/apache-sto
 nohup /usr/local/apache-storm-1.2.2/bin/storm ui > /usr/local/apache-storm-1.2.2/logs/ui.out 2>&1 &
 
 
-nohup java -Xdebug -Xrunjdwp:transport=dt_socket,address=9101,server=y,suspend=y -jar finance-api-gateway.jar > finance-api-gateway.jar.out  2>&1 &
-nohup java -Xdebug -Xrunjdwp:transport=dt_socket,address=9101,server=y,suspend=y -jar finance-api-gateway.jar > log.out  2>&1 &
-
-{"@timestamp":"2019-02-28T02:20:45.044Z",
-"@metadata":{"beat":"filebeat","type":"doc","version":"6.5.1","topic":"topic_api_log_dev"},
-"serverIp":"172.20.106.39",
-"beat":{"name":"GetOn-PC","hostname":"GetOn-PC","version":"6.5.1"},
-"host":{"name":"GetOn-PC",
-        "architecture":"x86_64",
-        "os":{
-            "platform":"windows",
-            "version":"10.0",
-            "family":"windows",
-            "build":"17763.316"},
-        "id":"319a6b0b-5bdd-47b4-8a8a-4169122eb723"},
-"message":"2019-02-28 10:20:37.636|INFO|Thread-63|||||||||||o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext|doClose|Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@7cd0890f: startup date [Thu Feb 28 10:15:28 CST 2019]; parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@6fc17c91",
-"source":"d:\\export\\data\\logs\\info\\finance-api-gateway-info.log",
-"offset":49505,
-"input":{"type":"log"},
-"prospector":{"type":"log"}}
+nohup java -Xdebug -Xrunjdwp:transport=dt_socket,address=9101,server=y,suspend=y -jar manager.jar > manager.jar.out  2>&1 &
+nohup java -Xdebug -Xrunjdwp:transport=dt_socket,address=9101,server=y,suspend=y -jar manager.jar > log.out  2>&1 &
+{
+    "@timestamp": "2020-10-21T16:40:49.181Z",
+    "@metadata": {
+        "beat": "filebeat",
+        "type": "_doc",
+        "version": "7.9.1"
+    },
+    "serverIp": "10.1.129.12",
+    "fileName": "pre",
+    "ecs": {
+        "version": "1.5.0"
+    },
+    "host": {
+        "id": "48F28C14-901D-5CD8-A4D6-7F4863D3D2B1",
+        "ip": [
+            "fe80::61:c8df:adc5:1406",
+            "10.1.129.12",
+            "10.1.201.47"
+        ],
+        "mac": [
+            "78:4f:43:5c:3b:19"
+        ],
+        "hostname": "bogon",
+        "architecture": "x86_64",
+        "name": "bogon",
+        "os": {
+            "family": "darwin",
+            "name": "Mac OS X",
+            "kernel": "19.6.0",
+            "build": "19G2021",
+            "platform": "darwin",
+            "version": "10.15.6"
+        }
+    },
+    "agent": {
+        "ephemeral_id": "49d52188-7087-4a34-84b5-f13abc0d08e8",
+        "id": "0e97f839-d5c2-4f75-9ade-5b597a40cf42",
+        "name": "bogon",
+        "type": "filebeat",
+        "version": "7.9.1",
+        "hostname": "bogon"
+    },
+    "log": {
+        "offset": 31273,
+        "file": {
+            "path": "/opt/logs/pre/pre.log"
+        }
+    },
+    "message": "2020-10-21T16:37:00.000000+08:00 10.193.10.17 \"id\" \"version\" \"2020-10-16 14:36:30\" \"dev\" \"pri\" \"waf_attack\" \"recorder\" \"vsid\" \"10.1.129.12\" \"8080\" \"10.1.129.12\" \"9023\" \"http\" \"server\" \"method\" \"host\" \"url\" \"args\" \"referer\" \"user_agent\" \"status\" \"real_ip\" \"ATTACK_XSS\" \"rule_id\" \"阻断\" \"severity\" \"action_data\" \"msg\" \"detail\" \"reqhdr\" \"rsphdr\" \"eventid\"",
+    "input": {
+        "type": "log"
+    }
+}
