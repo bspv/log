@@ -37,5 +37,6 @@ pagehelper:
 #logback日志
 logging:
   config: classpath:logback-spring.xml
-  path: /export/data/logs/
   charset: UTF-8
+  file:
+    path: /data/logs/

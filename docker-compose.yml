@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  alarm:
+    build: ./alarm
+    image: alarm
+    container_name: alarm-container
+    restart: always
+    ports: 
+      - 9022:9022
+    volumes:
+      - /data/logs/:/data/logs/
+    environment:
+      TZ: Asia/Shanghai
+
+  manager:
+    build: ./manager
+    image: manager
+    container_name: manager-container
+    restart: always
+    ports: 
+      - 9021:9021
+    volumes:
+      - /data/logs/:/data/logs/
+    environment:
+      TZ: Asia/Shanghai
+
+networks:
+  default:
+    name: d-network

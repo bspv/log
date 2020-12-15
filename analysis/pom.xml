@@ -314,7 +314,7 @@
                 <activeProfile>dev</activeProfile>
 
                 <pom.log4j2.level>DEBUG</pom.log4j2.level>
-                <pom.log4j2.path>/opt/logs/</pom.log4j2.path>
+                <pom.log4j2.path>/data/logs/</pom.log4j2.path>
                 <pom.log4j2.name>${project.artifactId}</pom.log4j2.name>
             </properties>
             <activation>
@@ -327,7 +327,7 @@
                 <activeProfile>test</activeProfile>
 
                 <pom.log4j2.level>INFO</pom.log4j2.level>
-                <pom.log4j2.path>/opt/logs</pom.log4j2.path>
+                <pom.log4j2.path>/data/logs</pom.log4j2.path>
                 <pom.log4j2.name>${project.artifactId}</pom.log4j2.name>
             </properties>
         </profile>
@@ -337,7 +337,7 @@
                 <activeProfile>prod</activeProfile>
 
                 <pom.log4j2.level>INFO</pom.log4j2.level>
-                <pom.log4j2.path>/opt/logs</pom.log4j2.path>
+                <pom.log4j2.path>/data/logs</pom.log4j2.path>
                 <pom.log4j2.name>${project.artifactId}</pom.log4j2.name>
             </properties>
         </profile>
